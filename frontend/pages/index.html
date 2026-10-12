@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Learn!</title>
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/menu.css" rel="stylesheet">
+  <script src="js/menu.js"></script>
+</head>
+<body class="defaultTemplate">
+  <nav>
+    <h1 class="headtext1">How to Learn!</h1>
+    <div>
+      <button id="loginBtn">เข้าสู่ระบบ</button>
+    </div>
+  </nav>
+
+  <main>
+    <div>
+      <h1>เรียนวิชาสามัญง่ายๆแบบไม่ปวดหัว</h1>
+    </div>
+
+    <div>
+      <div>
+        <h2>เนื้อหาทุกระดับครอบคลุมทุกรายวิชา</h2>
+        <p>เรียนวิชาสามัญของทุกระดับตั้งแต่ชั้นประถมไปจนถึงระดับมหาวิทยาลัย</p>
+      </div>
+      <div>
+        <h2>ฝึกฝนและจดจำเนื้อหาไม่ให้ลืม</h2>
+        <p>แบบทดสอบและแบบฝึกหัดหลังจากเรียนจบบทเรียนช่วยให้ลืมเนื้อหายากขึ้น</p>
+      </div>
+      <div>
+        <h1>เริ่มเรียนกันเลยดีกว่า!</h1>
+        <button id="startBtn">เริ่มต้นเรียน</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div>
+      <div>
+        <h4>ระดับเนื้อหา</h4>
+        <ul>
+          <li>ประถมต้น</li>
+          <li>ประถมปลาย</li>
+          <li>มัธยมต้น</li>
+          <li>มัธยมปลาย</li>
+          <li>มหาวิทยาลัย</li>
+        </ul>
+      </div>
+      <div>
+        <h4>รายวิชา</h4>
+        <ul>
+          <li>คณิตศาสตร์</li>
+          <li>วิทยาศาสตร์</li>
+          <li>เคมีศึกษา</li>
+          <li>ชีวะศึกษา</li>
+          <li>อังกฤษ</li>
+          <li>ภาษาไทย</li>
+        </ul>
+      </div>
+      <div>
+        <h4>ติดต่อ</h4>
+        <ul>
+          <li>Email: contact@matheo.com</li>
+          <li>Tel. 08X XXX XXXX</li>
+        </ul>
+      </div>
+    </div>
+
+    <div>
+      <h1>How to Learn!</h1>
+    </div>
+  </footer>
+
+  <script src="js/API.js"></script>
+  <script>
+    document.getElementById("loginBtn").addEventListener("click", () => {
+      location.href = "login.html";
+    });
+    document.getElementById("startBtn").addEventListener("click", () => {
+      location.href = Auth.getToken() ? "course-select.html" : "login.html";
+    });
+  </script>
+</body>
+</html>
