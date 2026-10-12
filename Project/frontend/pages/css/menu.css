@@ -1,0 +1,335 @@
+/* =========================================================
+   menu.css  — ปุ่มเมนูขวาบน, แถบเมนูเลื่อนจากขวา, ป็อปอัพเลือกธีม
+   ใส่ต่อจาก style.css (ต้องโหลดหลัง style.css)
+   ========================================================= */
+
+:root {
+  --nav-bg: #fff;
+  --btn-bg: #fff;
+  --panel-bg: #fff;
+  --text: #16181d;
+}
+
+/* ---------- แถบ header สีขาว ---------- */
+nav {
+  background: var(--nav-bg);
+  position: relative;
+  z-index: 5;
+  transition: background .3s, color .3s;
+}
+body { color: var(--text); transition: color .3s; }
+button { background: var(--btn-bg); }
+button:hover { background: var(--blue); }
+
+/* ---------- ปุ่มเมนู (แฮมเบอร์เกอร์) ---------- */
+#menuToggle {
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: #fde0f7;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin-left: 6px;
+}
+#menuToggle:hover { background: #f9c6ee; }
+#menuToggle span {
+  display: block;
+  width: 26px;
+  height: 3px;
+  border-radius: 2px;
+  background: #111;
+}
+#menuToggle:focus-visible,
+.sm-row:focus-visible,
+.sm-back:focus-visible,
+.swatch-btn:focus-visible,
+.theme-opt:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+
+/* ---------- ฉากหลังมืดตอนเปิดเมนู ---------- */
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .25);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s, visibility .3s;
+  z-index: 40;
+}
+.menu-overlay.open { opacity: 1; visibility: visible; }
+
+/* ---------- แถบเมนูด้านขวา ---------- */
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: min(340px, 85vw);
+  padding: 28px 32px 32px;
+  background: var(--panel-bg);
+  color: var(--text);
+  border-left: 2px solid #111;
+  transform: translateX(100%);
+  visibility: hidden;
+  transition: transform .35s cubic-bezier(.22, 1, .36, 1), visibility .35s, background .3s;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+}
+.side-menu.open { transform: translateX(0); visibility: visible; }
+
+.sm-title { font-size: 34px; font-weight: 700; margin: 0 0 28px; }
+
+.side-menu .sm-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 0;
+  margin: 0 0 22px;
+  border: none;
+  border-radius: 0;
+  background: none;
+  color: inherit;
+  font-size: 22px;
+  font-weight: 700;
+  text-align: left;
+}
+.side-menu .sm-row:hover { background: none; color: var(--blue); }
+.sm-theme { cursor: default; }
+.sm-theme:hover { color: inherit; }
+
+.swatch-btn {
+  width: 62px;
+  height: 62px;
+  padding: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 0, 0, .25);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+}
+.swatch-btn:hover { background: inherit; transform: scale(1.05); }
+
+/* กล่องข้อมูลบัญชี */
+.sm-account {
+  margin: -8px 0 22px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(127, 127, 127, .15);
+  font-size: 15px;
+  display: none;
+}
+.sm-account.open { display: block; }
+.sm-account p { margin: 0 0 10px; word-break: break-all; }
+.sm-account button { width: 100%; }
+
+.side-menu .sm-back {
+  margin-top: auto;
+  align-self: flex-start;
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  font-size: 20px;
+  font-weight: 700;
+}
+.side-menu .sm-back:hover { background: none; color: var(--blue); }
+
+/* ---------- ป็อปอัพเลือกธีม (เด้งออกมาทางซ้ายของแถบเมนู) ---------- */
+.theme-pop {
+  position: fixed;
+  top: 150px;
+  right: calc(min(340px, 85vw) + 16px);
+  width: 320px;
+  max-width: calc(100vw - 24px);
+  min-height: 380px;
+  padding: 22px 18px;
+  background: var(--panel-bg);
+  color: var(--text);
+  border: 2px solid #111;
+  border-radius: 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: max-content;
+  gap: 18px 8px;
+  transform: translateX(30px) scale(.96);
+  opacity: 0;
+  visibility: hidden;
+  transition: transform .3s cubic-bezier(.22, 1, .36, 1), opacity .25s, visibility .25s, background .3s;
+  z-index: 60;
+}
+.theme-pop.open { transform: none; opacity: 1; visibility: visible; }
+
+.theme-pop .theme-opt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: none;
+  color: inherit;
+  font-size: 12px;
+}
+.theme-pop .theme-opt:hover { background: none; color: inherit; }
+.theme-opt .dot {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+  transition: transform .2s;
+}
+.theme-opt:hover .dot { transform: scale(1.08); }
+.theme-opt.active .dot { border-color: #111; outline: 3px solid var(--blue); outline-offset: 2px; }
+.theme-opt.active span { text-decoration: underline; }
+.theme-opt:disabled { opacity: .55; cursor: not-allowed; }
+.theme-opt:disabled:hover .dot { transform: none; }
+
+@media (max-width: 640px) {
+  .theme-pop { right: 12px; top: 190px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .side-menu, .theme-pop, .menu-overlay { transition: none; }
+}
+
+/* =========================================================
+   ธีมสี  — เปลี่ยนทั้งพื้นหลัง และสีตัวอักษร/ปุ่ม ให้เข้ากัน
+   ธีม "default" ใช้ค่าเดิมจาก style.css (ไม่ override)
+   ========================================================= */
+html[data-theme]:not([data-theme="default"]) body {
+  background: var(--page-bg);
+  background-attachment: fixed;
+  background-size: cover;
+  color: var(--text);
+}
+html[data-theme]:not([data-theme="default"]) .headtext1 { color: var(--blue); }
+html[data-theme]:not([data-theme="default"]) footer {
+  background-color: var(--nav-bg);
+  border-color: var(--blue);
+}
+
+/* ธีมสว่าง */
+html[data-theme="light"] {
+  --page-bg: #f6f3ea;
+  --text: #22201a;
+  --nav-bg: #ffffff;
+  --panel-bg: #ffffff;
+  --btn-bg: #ffffff;
+  --blue: #2f9bf5;
+}
+
+/* ธีมมืด */
+html[data-theme="dark"] {
+  --page-bg: #16171c;
+  --text: #f1f1f4;
+  --nav-bg: #22232a;
+  --panel-bg: #22232a;
+  --btn-bg: #22232a;
+  --blue: #6cb8ff;
+}
+html[data-theme="dark"] #menuToggle { background: #3a3340; }
+html[data-theme="dark"] #menuToggle span { background: #f1f1f4; }
+html[data-theme="dark"] .side-menu,
+html[data-theme="dark"] .theme-pop { border-color: #f1f1f4; }
+
+/* =========================================================
+   ธีมแอนิเมชัน (ท้องฟ้า / ป่า / ทะเลทราย / กาแลคซี่)
+   พื้นหลังวาดโดย js/theme-canvas.js → body เหลือแค่สีสำรอง
+   header / แถบเมนู / ปุ่ม ใช้สไตล์กระจกฝ้า (glassmorphism) แบบเดียวกับ interractive
+   ========================================================= */
+#themeCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+/* ให้เนื้อหาลอยอยู่เหนือ canvas */
+html[data-theme="sky"] main, html[data-theme="forest"] main,
+html[data-theme="desert"] main, html[data-theme="galaxy"] main,
+html[data-theme="sky"] footer, html[data-theme="forest"] footer,
+html[data-theme="desert"] footer, html[data-theme="galaxy"] footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* กระจกฝ้า: header, แถบเมนู, ป็อปอัพ */
+html[data-theme="sky"] nav, html[data-theme="forest"] nav,
+html[data-theme="desert"] nav, html[data-theme="galaxy"] nav,
+html[data-theme="sky"] .side-menu, html[data-theme="forest"] .side-menu,
+html[data-theme="desert"] .side-menu, html[data-theme="galaxy"] .side-menu,
+html[data-theme="sky"] .theme-pop, html[data-theme="forest"] .theme-pop,
+html[data-theme="desert"] .theme-pop, html[data-theme="galaxy"] .theme-pop {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
+}
+html[data-theme="sky"] nav, html[data-theme="forest"] nav,
+html[data-theme="desert"] nav, html[data-theme="galaxy"] nav {
+  border-bottom: 1px solid rgba(255, 255, 255, .25);
+}
+/* ตัวหนังสือบนฉากหลังที่เคลื่อนไหว อ่านง่ายขึ้นด้วยเงาบางๆ */
+html[data-theme="sky"] main, html[data-theme="forest"] main,
+html[data-theme="desert"] main, html[data-theme="galaxy"] main {
+  text-shadow: 0 1px 6px rgba(0, 0, 0, .18);
+}
+
+/* ท้องฟ้า — ฉากสว่าง ใช้ตัวอักษรกรมท่า */
+html[data-theme="sky"] {
+  --page-bg: #38bdf8;
+  --text: #0b2a4a;
+  --nav-bg: rgba(255, 255, 255, .45);
+  --panel-bg: rgba(255, 255, 255, .72);
+  --btn-bg: rgba(255, 255, 255, .6);
+  --blue: #0369a1;
+}
+
+/* ป่าพงไพร — ฉากเข้ม ใช้ตัวอักษรขาว */
+html[data-theme="forest"] {
+  --page-bg: #064e3b;
+  --text: #f0fdf4;
+  --nav-bg: rgba(2, 44, 34, .55);
+  --panel-bg: rgba(2, 44, 34, .8);
+  --btn-bg: rgba(255, 255, 255, .12);
+  --blue: #86efac;
+}
+
+/* ทะเลทราย — โทนส้ม ใช้ตัวอักษรน้ำตาลเข้ม */
+html[data-theme="desert"] {
+  --page-bg: #f97316;
+  --text: #3b1a05;
+  --nav-bg: rgba(255, 244, 222, .55);
+  --panel-bg: rgba(255, 244, 222, .8);
+  --btn-bg: rgba(255, 244, 222, .65);
+  --blue: #9a3f0a;
+}
+html[data-theme="desert"] main { text-shadow: 0 1px 6px rgba(255, 244, 222, .35); }
+
+/* กาแลคซี่ — ฉากมืด ใช้ตัวอักษรขาว */
+html[data-theme="galaxy"] {
+  --page-bg: #170d3d;
+  --text: #f5f3ff;
+  --nav-bg: rgba(15, 23, 42, .45);
+  --panel-bg: rgba(23, 13, 61, .82);
+  --btn-bg: rgba(255, 255, 255, .12);
+  --blue: #d8b4fe;
+}
+
+/* สีขีดปุ่มเมนู + ขอบแถบเมนู ให้เข้ากับฉากเข้ม */
+html[data-theme="forest"] #menuToggle, html[data-theme="galaxy"] #menuToggle { background: rgba(255, 255, 255, .2); }
+html[data-theme="forest"] #menuToggle span, html[data-theme="galaxy"] #menuToggle span { background: #fff; }
+html[data-theme="sky"] #menuToggle, html[data-theme="desert"] #menuToggle { background: rgba(255, 255, 255, .6); }
+html[data-theme="forest"] .side-menu, html[data-theme="forest"] .theme-pop,
+html[data-theme="galaxy"] .side-menu, html[data-theme="galaxy"] .theme-pop { border-color: rgba(255, 255, 255, .6); }
+html[data-theme="sky"] .side-menu, html[data-theme="sky"] .theme-pop,
+html[data-theme="desert"] .side-menu, html[data-theme="desert"] .theme-pop { border-color: rgba(0, 0, 0, .55); }
+
+/* ปุ่มที่เลือกอยู่ในป็อปอัพ: เรืองแสงเบาๆ เหมือน .theme-btn.active ของ interractive */
+.theme-opt.active .dot { box-shadow: 0 0 20px rgba(255, 255, 255, .6); }
