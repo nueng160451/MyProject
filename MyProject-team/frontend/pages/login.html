@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Login | How to Learn!</title>
+        <link href="css/style.css" rel="stylesheet">
+   </head>
+   <body container="login-page">
+
+      <!-- Header แถบด้านบน -->
+      <nav>
+         <h1 class="headtext1">How to Learn!</h1>
+         <div>
+            <button>เข้าสู่ระบบ</button>
+         </div>
+      </nav>
+    <!-- Login -->
+    <div class="login-container">
+        <div class="login-box">
+            <h1>Welcome </h1>
+            <p class="subtitle">
+                Please login to your account
+            </p>
+            <form>
+                <div class="input-group">
+                    <label for="email">
+                        Email
+                    </label>
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter your email"
+                    >
+                </div>
+                <div class="input-group">
+                    <label for="password">
+                        Password
+                    </label>
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                    >
+                </div>
+                <div class="options">
+                    <label class="remember">
+                        <input type="checkbox">
+                        <span>Remember me</span>
+                    </label>
+                    <a href="#">
+                        Forgot password?
+                    </a>
+                </div>
+                <button type="submit">
+                    <span>Login</span>
+                </button>
+            </form>
+            <p class="signup">
+                Don't have an account?
+                <a href="#">
+                    Sign up
+                </a>
+            </p>
+        </div>
+    </div>
+<script src="js/API.js"></script>
+<script>
+  document.getElementById("loginForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = document.getElementById("email").value.trim();
+    const pass = document.getElementById("pass").value;
+    const { ok, data } = await apiLogin(email, pass);
+    if (ok) {
+      Auth.saveSession(data.token, email);
+      window.location.href = "course-select.html";
+    } else {
+      document.getElementById("msg").textContent = data.message || "เข้าสู่ระบบไม่สำเร็จ";
+    }
+  });
+</script>
+   </body>
+</html>
