@@ -1,0 +1,153 @@
+/* =========================================================
+   หน้าเลือกบทเรียน (course-path)
+   ใช้เฉพาะภายใน .coursePage จึงไม่กระทบ nav หรือหน้าอื่น
+   ========================================================= */
+
+.coursePage {
+  max-width: 1010px;
+  margin: 0 auto;
+}
+
+/* ----- หัวข้อวิชา / ระดับ ----- */
+.courseHeader {
+  padding: 0 34px 20px;
+}
+.courseHeader .titleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 24px;
+}
+.courseHeader h2 {
+  margin: 0;
+  font-size: clamp(28px, 4.5vw, 44px);
+  font-weight: 700;
+  color: var(--text, #0c2a43);
+}
+.courseHeader p {
+  margin: 8px 0 0;
+  font-size: clamp(16px, 2.2vw, 24px);
+  line-height: 1.5;
+  color: var(--text, #0c2a43);
+}
+
+/* ----- รายการบท ----- */
+.chapterList {
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+}
+
+.chapter {
+  background: #fff;
+  color: #0c2a43;
+  border: 3px solid #000;
+  border-radius: 28px;
+  padding: 14px 18px;
+}
+
+.chapter-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 78px;
+}
+.chapter-head h3 {
+  margin: 0;
+  font-size: clamp(20px, 3.2vw, 36px);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* ปุ่มกลมขวาบน กดเพื่อเปิด/ปิดบท */
+.chapter .chapter-toggle {
+  flex: 0 0 auto;
+  width: 72px;
+  height: 58px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--blue);
+  border-radius: 50%;
+  background: #eaf6ff;
+  color: var(--blue);
+  font-size: 24px;
+  line-height: 1;
+}
+.chapter .chapter-toggle:hover {
+  background: var(--blue);
+  color: #fff;
+}
+.chapter-toggle .arrow {
+  display: inline-block;
+  transition: transform .3s ease;
+}
+.chapter-toggle[aria-expanded="true"] .arrow {
+  transform: rotate(180deg);
+}
+
+/* ส่วนที่เลื่อนลงมา: ดันบทด้านล่างลงอัตโนมัติเพราะความสูงของการ์ดเพิ่มขึ้น */
+.chapter-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .3s ease;
+}
+.chapter.open .chapter-panel {
+  grid-template-rows: 1fr;
+}
+
+/* .container = แถบปุ่มที่เลื่อนซ้าย-ขวาได้ */
+.chapter-panel > .container {
+  min-height: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-color: #888 transparent;
+  /* ปิดอยู่ = ซ่อนและโฟกัสด้วยคีย์บอร์ดไม่ได้ (หน่วงไว้ให้แอนิเมชันปิดจบก่อน) */
+  visibility: hidden;
+  transition: visibility 0s linear .3s;
+}
+.chapter.open .chapter-panel > .container {
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.container .buttonRow {
+  display: flex;
+  gap: 40px;
+  width: max-content;
+  padding: 24px 12px 22px;
+}
+.container .buttonRow button {
+  flex: 0 0 auto;
+  min-width: 150px;
+  height: 84px;
+  padding: 0 28px;
+  border: 2px solid var(--blue);
+  border-radius: 999px;
+  background: #eaf6ff;
+  color: var(--blue);
+  font-size: 26px;
+}
+.container .buttonRow button:hover {
+  background: var(--blue);
+  color: #fff;
+}
+
+@media (max-width: 640px) {
+  .courseHeader { padding: 0 6px 16px; }
+  .chapterList { gap: 22px; }
+  .chapter { border-radius: 22px; padding: 12px 14px; }
+  .chapter-head { min-height: 60px; }
+  .chapter .chapter-toggle { width: 58px; height: 48px; font-size: 20px; }
+  .container .buttonRow { gap: 20px; padding: 18px 6px 16px; }
+  .container .buttonRow button { min-width: 120px; height: 64px; font-size: 20px; padding: 0 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chapter-panel,
+  .chapter-toggle .arrow,
+  .chapter-panel > .container { transition: none; }
+}
