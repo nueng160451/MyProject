@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>มินิเกม: การ์ดความจำเวทมนตร์</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="minigame_p1_ch4.css">
+</head>
+<body>
+    <div class="container clearfix">
+        <button class="btn-nav" onclick="window.history.back()">ย้อนกลับ</button>
+        <h1>มินิเกม: การ์ดความจำเวทมนตร์ 🃏</h1>
+        
+        <div class="game-header">
+            <div class="target-box">
+                ภารกิจ: เปิดจับคู่การ์ดที่สัมพันธ์กันให้ครบทุกคู่!
+            </div>
+            <div class="score-box">จับคู่สำเร็จ: <span id="score-display">0</span> / 4 คู่</div>
+        </div>
+
+        <div class="game-area">
+            <div class="card-grid" id="card-grid">
+                <!-- การ์ดทั้ง 9 ใบจะถูกสร้างและสลับด้วย JavaScript -->
+            </div>
+        </div>
+
+        <div id="status-message" class="message-text">คลิกที่การ์ดเพื่อเปิดดูและหาคู่แฝดที่สัมพันธ์กันได้เลย!</div>
+
+        <div id="end-screen" class="hidden">
+            <h2>เก่งมาก! จับคู่เวทมนตร์สำเร็จแล้ว 👏</h2>
+            <p id="final-card-score">คุณจับคู่ได้ถูกต้องทั้งหมด!</p>
+            <a href="quiz_p1_ch4.html" class="btn-next">ไปทำแบบฝึกหัด 15 ข้อ &raquo;</a>
+        </div>
+    </div>
+
+    <script src="minigame_p1_ch4.js"></script>
+</body>
+</html>

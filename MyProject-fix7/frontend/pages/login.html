@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>เข้าสู่ระบบ</title>
+  <link href="css/menu.css" rel="stylesheet">
+  <script src="js/theme-canvas.js"></script>
+  <script src="js/menu.js"></script>
+</head>
+<body>
+    <h1>ยินดีต้อนรับกลับ</h1>
+    <p class="subtitle">เข้าสู่ระบบเพื่อใช้งานบัญชีของคุณ</p>
+
+    <form action="/login.html" method="POST">
+      <label for="email">อีเมล</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="you@example.com"
+        autocomplete="email"
+        required
+      >
+
+      <label for="password">รหัสผ่าน</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="กรอกรหัสผ่าน"
+        autocomplete="current-password"
+        required
+      >
+      <button type="submit">เข้าสู่ระบบ</button>
+    </form>
+
+    <p class="footer-text">
+      ยังไม่มีบัญชี?
+      <a href="/register.html">สมัครสมาชิก</a>
+    </p>
+  </main>
+</body>
+</html>

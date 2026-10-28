@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>มินิเกม: ป้อนอาหารมอนสเตอร์</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="minigame_p1_ch1.css">
+</head>
+<body>
+    <div class="container clearfix">
+        <button class="btn-nav" onclick="window.history.back()">ย้อนกลับ</button>
+        <h1>มินิเกม: ป้อนอาหารมอนสเตอร์จอมหิว</h1>
+        
+        <div class="instructions">
+            <p><strong>วิธีเล่น:</strong> ลากคุกกี้ตัวอักษรไปป้อนให้มอนสเตอร์ที่ชอบอักษรหมู่นั้นๆ</p>
+            <ul class="legend">
+                <li>🟢 <strong>สีเขียว</strong> ชอบอักษรกลาง</li>
+                <li>🔴 <strong>สีแดง</strong> ชอบอักษรสูง</li>
+                <li>🔵 <strong>สีน้ำเงิน</strong> ชอบอักษรต่ำ</li>
+            </ul>
+        </div>
+
+        <div class="game-area">
+            <div class="status-bar">
+                <span id="score-display">คะแนน: 0 / 5</span>
+                <span id="message-display">เริ่มเกมได้เลย!</span>
+            </div>
+
+            <!-- สายพานคุกกี้ -->
+            <div class="conveyor-belt">
+                <div id="cookie" class="cookie" draggable="true">ก</div>
+            </div>
+
+            <!-- มอนสเตอร์ -->
+            <div class="monsters-container">
+                <div class="monster monster-mid" data-class="กลาง">
+                    <div class="monster-face">😋</div>
+                    <div class="monster-name">อักษรกลาง</div>
+                </div>
+                <div class="monster monster-high" data-class="สูง">
+                    <div class="monster-face">😋</div>
+                    <div class="monster-name">อักษรสูง</div>
+                </div>
+                <div class="monster monster-low" data-class="ต่ำ">
+                    <div class="monster-face">😋</div>
+                    <div class="monster-name">อักษรต่ำ</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="end-screen" class="hidden">
+            <h2>เก่งมาก! มอนสเตอร์อิ่มแล้ว 🎉</h2>
+            <a href="quiz_p1_ch1.html" class="btn-next">ไปทำแบบฝึกหัดกัน</a>
+        </div>
+    </div>
+
+    <script src="minigame_p1_ch1.js"></script>
+</body>
+</html>
