@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แบบทดสอบ บทที่ 2: มาตราตัวสะกด</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="quiz_p1_ch2.css">
+</head>
+<body>
+    <div class="container clearfix">
+        <button class="btn-nav" onclick="window.history.back()">ย้อนกลับ</button>
+        <h1>แบบทดสอบ บทที่ 2: มาตราตัวสะกด</h1>
+        
+        <div id="quiz-box">
+            <div class="quiz-header">
+                <span id="question-number">ข้อที่ 1 / 15</span>
+                <span id="score-count">คะแนน: 0</span>
+            </div>
+            
+            <div id="question-text" class="question">ข้อความโจทย์จะปรากฏที่นี่</div>
+            
+            <div id="options-container" class="options"></div>
+        </div>
+
+        <div id="result-box" class="hidden">
+            <h2>สรุปผลการทำแบบทดสอบ 🎉</h2>
+            <p id="final-score">คุณได้คะแนน 0 จาก 15 คะแนน</p>
+            <div class="result-actions">
+                <button class="btn-restart" onclick="restartQuiz()">ทำแบบทดสอบอีกครั้ง</button>
+                <a href="lesson_p1_ch3.html" class="btn-next">ไปบทเรียนถัดไป &raquo;</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="quiz_p1_ch2.js"></script>
+</body>
+</html>

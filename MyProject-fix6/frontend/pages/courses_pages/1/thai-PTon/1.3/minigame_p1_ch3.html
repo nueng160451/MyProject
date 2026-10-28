@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>มินิเกม: ลูกโป่งคำคล้องจองลอยฟ้า</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="minigame_p1_ch3.css">
+</head>
+<body>
+    <div class="container clearfix">
+        <button class="btn-nav" onclick="window.history.back()">ย้อนกลับ</button>
+        <h1>มินิเกม: ลูกโป่งคำคล้องจองลอยฟ้า 🎈</h1>
+        
+        <div class="game-header">
+            <div class="target-box">
+                ภารกิจที่ <span id="round-num">1</span> / 5 : ตามหาคำคล้องจองกับ <strong id="target-word" class="highlight">"โรงเรียน"</strong>
+            </div>
+            <div class="score-box">คะแนน: <span id="score-display">0</span></div>
+        </div>
+
+        <div class="game-area">
+            <div class="balloon-sky" id="sky-area">
+                <!-- ลูกโป่งจะทยอยลอยขึ้นมาจากล่างขึ้นบนด้วย JS -->
+            </div>
+        </div>
+
+        <div id="status-message" class="message-text">สังเกตลูกโป่งที่ลอยขึ้นมา แล้วจิ้มคำที่คล้องจองได้เลย!</div>
+
+        <div id="end-screen" class="hidden">
+            <h2>ผ่านด่านสำเร็จ! เก่งมาก 👏</h2>
+            <p id="final-balloon-score">คุณได้คะแนนรวม 0 คะแนน</p>
+            <a href="quiz_p1_ch3.html" class="btn-next">ไปทำแบบฝึกหัด 15 ข้อ &raquo;</a>
+        </div>
+    </div>
+
+    <script src="minigame_p1_ch3.js"></script>
+</body>
+</html>

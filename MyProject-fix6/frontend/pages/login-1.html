@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | How to Learn!</title>
+  <link href="css/style.css" rel="stylesheet">
+  <!-- ธีมสีพื้นหลัง (ต้องโหลดเรียง: style.css → menu.css → theme-canvas.js → menu.js) -->
+  <link href="css/menu.css" rel="stylesheet">
+  <script src="js/theme-canvas.js"></script>
+  <script src="js/menu.js"></script>
+</head>
+<!-- ✅ แก้: เดิมเขียน container="login-page" (attribute ที่ไม่มีจริง) CSS จึงไม่ถูกใช้ ต้องเป็น class -->
+<body class="login-page">
+
+  <!-- Header แถบด้านบน -->
+  <nav>
+    <h1 class="headtext1">How to Learn!</h1>
+    <div>
+      <button type="button" onclick="location.href='index.html'">หน้าแรก</button>
+    </div>
+  </nav>
+
+  <!-- Login / Sign up -->
+  <div class="login-container">
+    <div class="login-box">
+      <h1 id="title">Welcome</h1>
+      <p class="subtitle" id="subtitle">Please login to your account</p>
+
+      <!-- ✅ แก้: เพิ่มช่องแสดงข้อความ (เดิมสคริปต์อ้าง #msg แต่ไม่มี element นี้) -->
+      <p class="msg" id="msg" role="status" aria-live="polite"></p>
+
+      <!-- ✅ แก้: เดิม <form> ไม่มี id="loginForm" และ input id="password" แต่สคริปต์เรียก "pass" -->
+      <form id="loginForm" novalidate>
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="Enter your email" autocomplete="email" required>
+        </div>
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password" required>
+        </div>
+        <div class="options">
+          <label class="remember">
+            <input type="checkbox" id="remember" checked>
+            <span>Remember me</span>
+          </label>
+          <a href="#" id="forgotLink">Forgot password?</a>
+        </div>
+        <button type="submit" id="submitBtn"><span>Login</span></button>
+      </form>
+
+      <p class="signup">
+        <span id="switchText">Don't have an account?</span>
+        <a href="#" id="switchLink">Sign up</a>
+      </p>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    let mode = "login"; // "login" | "signup"
+
+    function showMsg(text, type, html) {
+      const m = $("msg");
+      m.className = "msg" + (type ? " " + type : "");
+      if (html) m.innerHTML = html; else m.textContent = text || "";
+    }
+
+    function setMode(next) {
+      mode = next;
+      const signup = mode === "signup";
+      $("title").textContent = signup ? "Create account" : "Welcome";
+      $("subtitle").textContent = signup ? "Sign up with your email" : "Please login to your account";
+      $("submitBtn").firstElementChild.textContent = signup ? "Sign up" : "Login";
+      $("switchText").textContent = signup ? "Already have an account?" : "Don't have an account?";
+      $("switchLink").textContent = signup ? "Login" : "Sign up";
+      $("password").autocomplete = signup ? "new-password" : "current-password";
+      showMsg("");
+    }
+
+    $("switchLink").addEventListener("click", (e) => {
+      e.preventDefault();
+      setMode(mode === "login" ? "signup" : "login");
+    });
+    $("forgotLink").addEventListener("click", (e) => {
+      e.preventDefault();
+      showMsg("ฟีเจอร์ลืมรหัสผ่านยังไม่เปิดใช้งาน", "error");
+    });
+
+    // ข้อความหลังคลิกลิงก์ยืนยันอีเมล (backend redirect มาที่ ?verified=1 หรือ 0)
+    const verified = new URLSearchParams(location.search).get("verified");
+    if (verified === "1") showMsg("ยืนยันอีเมลสำเร็จ เข้าสู่ระบบได้เลย", "success");
+    if (verified === "0") showMsg("ลิงก์ยืนยันไม่ถูกต้องหรือหมดอายุ กรุณากดส่งอีเมลยืนยันใหม่หลังพยายามเข้าสู่ระบบ", "error");
+
+    async function resendVerification(email) {
+      const { data } = await apiResendVerification(email);
+      showMsg(data.message || "ส่งอีเมลยืนยันแล้ว", "success");
+    }
+
+    $("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = $("email").value.trim();
+      const pass = $("password").value;
+      if (!email || !pass) return showMsg("กรุณากรอกอีเมลและรหัสผ่าน", "error");
+
+      const btn = $("submitBtn");
+      btn.disabled = true;
+      try {
+        if (mode === "signup") {
+          const { ok, data } = await apiSignup(email, pass);
+          if (ok) {
+            if (!data.warning) setMode("login");
+            showMsg(data.warning || "สมัครสมาชิกสำเร็จ กรุณายืนยันอีเมลก่อนเข้าสู่ระบบ", data.warning ? "error" : "success");
+          } else {
+            showMsg(data.message || "สมัครสมาชิกไม่สำเร็จ", "error");
+          }
+          return;
+        }
+
+        const { ok, data } = await apiLogin(email, pass);
+        if (ok) {
+          // ✅ แก้: ส่งค่า "Remember me" เข้าไปด้วย (เดิมกล่องติ๊กไม่มีผล)
+          Auth.saveSession(data.token, email, $("remember").checked);
+          // ✅ แก้: ไฟล์จริงชื่อ courses-select.html (เดิมเขียน course-select.html จึงเป็นหน้า 404)
+          window.location.href = "courses-select.html";
+        } else if (data.needVerify) {
+          showMsg("", "error", 'กรุณายืนยันอีเมลก่อนเข้าสู่ระบบ <a href="#" id="resendLink">ส่งอีเมลยืนยันอีกครั้ง</a>');
+          $("resendLink").addEventListener("click", (ev) => { ev.preventDefault(); resendVerification(email); });
+        } else {
+          showMsg(data.message || "เข้าสู่ระบบไม่สำเร็จ", "error");
+        }
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

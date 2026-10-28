@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>มินิเกม: ทุบตุ่นคำศัพท์ซน</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="minigame_p1_ch2.css">
+</head>
+<body>
+    <div class="container clearfix">
+        <button class="btn-nav" onclick="window.history.back()">ย้อนกลับ</button>
+        <h1>มินิเกม: ทุบตุ่นคำศัพท์ซน 🔨</h1>
+        
+        <div class="game-header">
+            <div class="target-box">
+                โจทย์ข้อที่ <span id="round-num">1</span> / 5 : <strong id="target-text" class="highlight">หาคำในแม่กน!</strong>
+            </div>
+            <div class="score-box">คะแนน: <span id="score-display">0</span></div>
+        </div>
+
+        <div class="game-board">
+            <div class="hole" onclick="whackMole(0)">
+                <div class="mole" id="mole-0">
+                    <div class="sign" id="sign-0">บ้าน</div>
+                    <div class="mole-head">🐹</div>
+                </div>
+            </div>
+            <div class="hole" onclick="whackMole(1)">
+                <div class="mole" id="mole-1">
+                    <div class="sign" id="sign-1">แมว</div>
+                    <div class="mole-head">🐹</div>
+                </div>
+            </div>
+            <div class="hole" onclick="whackMole(2)">
+                <div class="mole" id="mole-2">
+                    <div class="sign" id="sign-2">นก</div>
+                    <div class="mole-head">🐹</div>
+                </div>
+            </div>
+            <div class="hole" onclick="whackMole(3)">
+                <div class="mole" id="mole-3">
+                    <div class="sign" id="sign-3">เรียน</div>
+                    <div class="mole-head">🐹</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="status-message" class="message-text">คลิกทุบตัวตุ่นที่ถือคำตรงตามโจทย์เลย!</div>
+
+        <div id="end-screen" class="hidden">
+            <h2>ผ่านด่านสำเร็จ! เก่งมาก 👏</h2>
+            <p id="final-mole-score">คุณได้คะแนนรวม 0 คะแนน</p>
+            <a href="quiz_p1_ch2.html" class="btn-next">ไปทำแบบฝึกหัด 15 ข้อ &raquo;</a>
+        </div>
+    </div>
+
+    <script src="minigame_p1_ch2.js"></script>
+</body>
+</html>
